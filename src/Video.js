@@ -1,48 +1,39 @@
-import React, { useRef, useState } from 'react'
-import "./Video.css"
-import VideoFooter from './VideoFooter';
-import VideoSidebar from './VideoSidebar';
+import React, { useRef, useState } from "react";
+import "./Video.css";
+import VideoFooter from "./VideoFooter";
+import VideoSidebar from "./VideoSidebar";
 
+function Video({ url, channel, description, song, likes, shares, messages }) {
+  const [playing, setPlaying] = useState(false);
+  const videoRef = useRef(null);
 
-function Video() {
-
-    const [playing, setPlaying] = useState(false);
-    const videoRef = useRef(null);
-
-    const handleVideoPress = () => {
-
-        if (playing) {
-            videoRef.current.pause();
-            setPlaying(false);
-        }
-        else {
-            videoRef.current.play();
-            setPlaying(true);
-        }
+  const handleVideoPress = () => {
+    if (playing) {
+      videoRef.current.pause();
+      setPlaying(false);
+    } else {
+      videoRef.current.play();
+      setPlaying(true);
     }
+  };
 
-    return (
-        <div className="video">
-            <video
-                onClick={handleVideoPress}
-                className="video_player"
-                loop
-                ref={videoRef}
-                src="sample3.mp4" />
+  return (
+    <div className="video">
+      <video
+        onClick={handleVideoPress}
+        className="video_player"
+        loop
+        ref={videoRef}
+        src={url}
+      />
 
-            {/* Video Footer */}
-            <VideoFooter
-                channel="bipinkarki"
-                description="test this song"
-                song="sing song sing song" />
+      {/* Video Footer */}
+      <VideoFooter channel={channel} description={description} song={song} />
 
-            {/* VideoSidebar */}
-            <VideoSidebar
-                likes={100}
-                shares={100}
-                messages={200} />
-        </div>
-    )
+      {/* VideoSidebar */}
+      <VideoSidebar likes={100} shares={100} messages={200} />
+    </div>
+  );
 }
 
-export default Video
+export default Video;
